@@ -7,9 +7,11 @@ import com.fintech.Bank.Auth_User.dtos.UserDTO;
 import com.fintech.Bank.Auth_User.entity.User;
 import com.fintech.Bank.Notification.Services.NotificationService;
 import com.fintech.Bank.Notification.dtos.NotificationDTO;
+import com.fintech.Bank.aws.S3Service;
 import com.fintech.Bank.exceptions.BadRequestException;
 import com.fintech.Bank.exceptions.NotFoundException;
 import com.fintech.Bank.res.Response;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -41,7 +43,12 @@ public class UserServiceImpl implements UserService {
     private final NotificationService notificationService;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
-    private final String uploadDir = "uploads/profile-pictures/";
+    private final S3Service s3Service;
+
+//this will save images in the frontend public folder for easy access in the frontend
+    private final String uploadDir = "C:/SpringBootProj/react-app/public/profile-picture";
+
+
 
     @Override
     public User getCurrentLoggedInUser() {
@@ -56,10 +63,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Response<UserDTO> getMyProfile() {
        User user = getCurrentLoggedInUser();
 
        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+//        UserDTO userDTO = new UserDTO();
+//
+//        userDTO.setId(user.getId());
+//        userDTO.setFirstName(user.getFirstName());
+//        userDTO.setLastName(user.getLastName());
+//        userDTO.setEmail(user.getEmail());
+//        userDTO.setPhoneNumber(user.getPhoneNumber());
+//        userDTO.setProfilePictureUrl(user.getProfilePictureUrl());
+//        userDTO.setActive(user.isActive());
+//        userDTO.setCreatedAt(user.getCreatedAt());
+//        userDTO.setUpdatedAt(user.getUpdatedAt());
+//        userDTO.setRoles(user.getRoles());
 
        return Response.<UserDTO>builder()
                .statusCode(HttpStatus.OK.value())
@@ -130,7 +150,8 @@ if(!Files.exists(uploadPath)){
 }
 
 if(user.getProfilePictureUrl()!=null && !user.getProfilePictureUrl().isEmpty()){
-    Path oldFile = Paths.get(user.getProfilePictureUrl());
+//    Path oldFile = Paths.get(user.getProfilePictureUrl());
+    Path oldFile = Paths.get(uploadDir, Paths.get(user.getProfilePictureUrl()).getFileName().toString());
 
     if(Files.exists(oldFile)){
         Files.delete(oldFile);
@@ -139,7 +160,7 @@ if(user.getProfilePictureUrl()!=null && !user.getProfilePictureUrl().isEmpty()){
 
 String originalFileName = file.getOriginalFilename();
 String fileExtension = "";
-if(fileExtension!=null && originalFileName.contains(".")) {
+if(originalFileName!=null && originalFileName.contains(".")) {
     fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
 }
 
@@ -148,7 +169,7 @@ Path filePath = uploadPath.resolve(newFileName);
 
 Files.copy(file.getInputStream(),filePath);
 
-String fileUrl = uploadDir+ newFileName;
+String fileUrl = "profile-picture/"+ newFileName;//this is a rel path from the frontend
 
 user.setProfilePictureUrl(fileUrl);
 
@@ -160,4 +181,34 @@ return Response.builder().statusCode(HttpStatus.OK.value()).message("Profile pic
             throw new RuntimeException(e.getMessage());
         }
     }
+
+    @Override
+    public Response<?> uploadProfilePictureToS3(MultipartFile file) {
+        User user = getCurrentLoggedInUser();
+
+        try {
+
+            if (user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty()) {
+                s3Service.deleteFile(user.getProfilePictureUrl());
+            }
+
+            String s3Url = s3Service.uploadFile(file, "profile-pictures");
+
+
+            log.info("profile url is {}",s3Url);
+            user.setProfilePictureUrl(s3Url);
+            userRepo.save(user);
+
+            return Response.builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message("Profile picture uploaded successfully.")
+                    .data(s3Url)
+                    .build();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+
 }

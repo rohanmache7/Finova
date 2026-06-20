@@ -14,13 +14,14 @@ public class CodeGenerator {
 
     private static final String ALPHA_NUMERIC  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int CODE_LENGTH  = 5;
-    public String generatedUniqueCode(){
-        String code;
-        do{
-            code = generatedUniqueCode();
+    public String generatedUniqueCode() {
+        while (true) {
+            String code = generateRandomCode();
 
-        }while(passwordResetCodeRepo.findByCode(code).isPresent());
-        return code;
+            if (passwordResetCodeRepo.findByCode(code).isEmpty()) {
+                return code;
+            }
+        }
     }
 
     private String generateRandomCode(){

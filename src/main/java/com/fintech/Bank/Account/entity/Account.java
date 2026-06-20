@@ -5,10 +5,8 @@ import com.fintech.Bank.enums.AccountStatus;
 import com.fintech.Bank.enums.AccountType;
 import com.fintech.Bank.enums.Currency;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.transaction.Transactional;
+import lombok.*;
 import com.fintech.Bank.Transaction.entity.Transaction;
 
 import java.math.BigDecimal;
@@ -17,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @Table(name = "account")
 @NoArgsConstructor

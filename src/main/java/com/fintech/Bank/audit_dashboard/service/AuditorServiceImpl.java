@@ -6,6 +6,7 @@ import com.fintech.Bank.Auth_User.Repo.UserRepo;
 import com.fintech.Bank.Auth_User.dtos.UserDTO;
 import com.fintech.Bank.Transaction.Repo.TransactionRepo;
 import com.fintech.Bank.Transaction.dtos.TransactionDTO;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -34,12 +35,14 @@ public class AuditorServiceImpl implements AuditorService {
     }
 
     @Override
+    @Transactional
     public Optional<UserDTO> findUserByEmail(String email) {
         return userRepo.findByEmail(email)
                 .map(user->modelMapper.map(user, UserDTO.class));
     }
 
     @Override
+
     public Optional<AccountDTO> findAccountDetailsByAccountNumber(String accountNumber) {
  return accountRepo.findByAccountNumber(accountNumber)
          .map(account->modelMapper.map(account, AccountDTO.class));
