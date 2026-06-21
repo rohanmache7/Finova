@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class BankApplication {
 //private final NotificationService notificationService;
 	public static void main(String[] args) {
