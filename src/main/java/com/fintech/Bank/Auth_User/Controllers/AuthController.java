@@ -5,7 +5,6 @@ import com.fintech.Bank.Auth_User.dtos.LoginRequest;
 import com.fintech.Bank.Auth_User.dtos.LoginResponse;
 import com.fintech.Bank.Auth_User.dtos.RegistrationRequest;
 import com.fintech.Bank.Auth_User.dtos.ResetPasswordRequest;
-import com.fintech.Bank.Role.entity.Role;
 import com.fintech.Bank.res.Response;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

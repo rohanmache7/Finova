@@ -4,7 +4,6 @@ import com.fintech.Bank.Account.Services.AccountService;
 import com.fintech.Bank.res.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

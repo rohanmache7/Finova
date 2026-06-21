@@ -1,7 +1,6 @@
 package com.fintech.Bank.Transaction.Controllers;
 
 import com.fintech.Bank.Transaction.Services.TransactionService;
-import com.fintech.Bank.Transaction.dtos.TransactionDTO;
 import com.fintech.Bank.Transaction.dtos.TransactionRequest;
 import com.fintech.Bank.res.Response;
 import jakarta.validation.Valid;

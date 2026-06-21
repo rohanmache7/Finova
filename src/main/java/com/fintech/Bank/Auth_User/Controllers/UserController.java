@@ -1,7 +1,6 @@
 package com.fintech.Bank.Auth_User.Controllers;
 
 import com.fintech.Bank.Auth_User.Services.UserService;
-import com.fintech.Bank.Auth_User.dtos.RegistrationRequest;
 import com.fintech.Bank.Auth_User.dtos.UpdatePasswordRequest;
 import com.fintech.Bank.Auth_User.dtos.UserDTO;
 import com.fintech.Bank.res.Response;

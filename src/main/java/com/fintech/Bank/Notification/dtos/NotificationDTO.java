@@ -1,8 +1,10 @@
 package com.fintech.Bank.Notification.dtos;
 
-import com.fintech.Bank.Auth_User.entity.User;
 import com.fintech.Bank.enums.NotificationType;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

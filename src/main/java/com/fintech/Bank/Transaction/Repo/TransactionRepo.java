@@ -1,12 +1,10 @@
 package com.fintech.Bank.Transaction.Repo;
 
-import com.fintech.Bank.Account.entity.Account;
 import com.fintech.Bank.Transaction.entity.Transaction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.awt.font.TransformAttribute;
 import java.util.List;
 
 public interface TransactionRepo extends JpaRepository<Transaction,Long> {

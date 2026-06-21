@@ -1,7 +1,6 @@
 package com.fintech.Bank.Transaction.Services;
 
 import com.fintech.Bank.Account.Repo.AccountRepo;
-import com.fintech.Bank.Account.Services.AccountService;
 import com.fintech.Bank.Account.entity.Account;
 import com.fintech.Bank.Auth_User.Services.UserService;
 import com.fintech.Bank.Auth_User.entity.User;
@@ -18,7 +17,6 @@ import com.fintech.Bank.exceptions.InsufficientBalanceException;
 import com.fintech.Bank.exceptions.InvalidTransactionException;
 import com.fintech.Bank.exceptions.NotFoundException;
 import com.fintech.Bank.res.Response;
-import com.sun.net.httpserver.Authenticator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

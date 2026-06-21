@@ -1,7 +1,6 @@
 package com.fintech.Bank.Auth_User.Services;
 
 import com.fintech.Bank.Auth_User.Repo.PasswordResetCodeRepo;
-import com.fintech.Bank.Auth_User.entity.PasswordResetCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

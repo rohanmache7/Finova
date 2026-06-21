@@ -1,13 +1,12 @@
 package com.fintech.Bank.Account.entity;
 
 import com.fintech.Bank.Auth_User.entity.User;
+import com.fintech.Bank.Transaction.entity.Transaction;
 import com.fintech.Bank.enums.AccountStatus;
 import com.fintech.Bank.enums.AccountType;
 import com.fintech.Bank.enums.Currency;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 import lombok.*;
-import com.fintech.Bank.Transaction.entity.Transaction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

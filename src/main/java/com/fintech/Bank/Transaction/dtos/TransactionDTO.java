@@ -2,10 +2,9 @@ package com.fintech.Bank.Transaction.dtos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fintech.Bank.Account.dtos.AccountDTO;
-import com.fintech.Bank.Account.entity.Account;
 import com.fintech.Bank.enums.TransactionStatus;
 import com.fintech.Bank.enums.TransactionType;
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
